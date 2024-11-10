@@ -1,0 +1,15 @@
+[project]
+name = "mopidy-workspace"
+version = "0.1.0"
+description = "Workspace for working across multiple Mopidy projects."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["mopidy[dev]", "mopidy-local[dev]", "mopidy-mpd[dev]"]
+
+[tool.uv.sources]
+mopidy = { workspace = true }
+mopidy-local = { workspace = true }
+mopidy-mpd = { workspace = true }
+
+[tool.uv.workspace]
+members = ["mopidy/", "mopidy-*/"]
