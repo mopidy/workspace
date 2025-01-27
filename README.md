@@ -23,6 +23,7 @@ Clone any extensions you want to work on:
 ```sh
 gh repo clone mopidy/mopidy-local
 gh repo clone mopidy/mopidy-mpd
+gh repo clone mopidy/mopidy-spotify
 ```
 
 > [!WARNING]
