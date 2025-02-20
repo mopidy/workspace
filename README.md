@@ -3,7 +3,6 @@
 Experimental development environment setup for Mopidy using
 [uv](https://docs.astral.sh/uv/).
 
-
 ## Usage
 
 Clone this repo:
@@ -27,8 +26,9 @@ gh repo clone mopidy/mopidy-spotify
 ```
 
 > [!WARNING]
-> Make sure the extensions are added to the top-level `pyproject.toml`. They
-> should be listed both in `project.dependencies` and `uv.tool.sources`.
+> Make sure the extensions are added to the top-level `pyproject.toml`. They >
+> should be listed both in `project.dependencies`, `tool.uv.sources`, and
+> `tool.uv.workspace`.
 
 Then, use `uv` to install everything:
 

@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "Workspace for working across multiple Mopidy projects."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["mopidy[dev]", "mopidy-local[dev]", "mopidy-mpd[dev]", "mopidy-spotify[dev]"]
+dependencies = [
+    "mopidy[dev]",
+    "mopidy-local[dev]",
+    "mopidy-mpd[dev]",
+    "mopidy-spotify[dev]",
+]
 
 [tool.uv.sources]
 mopidy = { workspace = true }
@@ -13,4 +18,4 @@ mopidy-mpd = { workspace = true }
 mopidy-spotify = { workspace = true }
 
 [tool.uv.workspace]
-members = ["mopidy/", "mopidy-*/"]
+members = ["mopidy/", "mopidy-local/", "mopidy-mpd/", "mopidy-spotify/"]

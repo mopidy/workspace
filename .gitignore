@@ -1,5 +1,7 @@
+/cookiecutter-mopidy-ext/
 /infrastructure/
 /mopidy-*/
+/gst-plugins-rs/
 /mopidy/
 /website/
 uv.lock
