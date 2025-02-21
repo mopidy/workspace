@@ -8,6 +8,7 @@ dependencies = [
     "mopidy[dev]",
     "mopidy-local[dev]",
     "mopidy-mpd[dev]",
+    "mopidy-scrobbler",
     "mopidy-spotify[dev]",
 ]
 
@@ -15,7 +16,14 @@ dependencies = [
 mopidy = { workspace = true }
 mopidy-local = { workspace = true }
 mopidy-mpd = { workspace = true }
+mopidy-scrobbler = { workspace = true }
 mopidy-spotify = { workspace = true }
 
 [tool.uv.workspace]
-members = ["mopidy/", "mopidy-local/", "mopidy-mpd/", "mopidy-spotify/"]
+members = [
+    "mopidy/",
+    "mopidy-local/",
+    "mopidy-mpd/",
+    "mopidy-scrobbler/",
+    "mopidy-spotify/",
+]
