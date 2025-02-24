@@ -1,6 +1,8 @@
+/.*_cache/
+/.venv/
+/gst-plugins-rs/
 /infrastructure/
 /mopidy-*/
-/gst-plugins-rs/
 /mopidy/
 /website/
 uv.lock
