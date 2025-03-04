@@ -1,0 +1,5 @@
+[env]
+UV_PROJECT_ENVIRONMENT = "{{config_root}}/.venv"
+
+[tools]
+uv = "latest"
