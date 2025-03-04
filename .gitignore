@@ -1,9 +1,4 @@
 /.*_cache/
 /.venv/
-/apt/
-/gst-plugins-rs/
-/infrastructure/
-/mopidy-*/
-/mopidy/
-/website/
+/*/
 uv.lock
