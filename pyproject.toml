@@ -9,7 +9,7 @@ dependencies = [
     "mopidy-local",
     "mopidy-mpd",
     "mopidy-scrobbler",
-    "mopidy-spotify[dev]",
+    "mopidy-spotify",
 ]
 
 [tool.uv.sources]
