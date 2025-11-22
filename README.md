@@ -11,15 +11,10 @@ Clone this repo:
 gh repo clone mopidy/workspace ~/mopidy-dev
 ```
 
-Enter the newly created development environment:
-
-```sh
-cd ~/mopidy-dev
-```
-
 Clone any extensions you want to work on:
 
 ```sh
+cd ~/mopidy-dev/ext/
 gh repo clone mopidy/mopidy-local
 gh repo clone mopidy/mopidy-mpd
 gh repo clone mopidy/mopidy-scrobbler
@@ -28,12 +23,12 @@ gh repo clone mopidy/mopidy-spotify
 
 > [!WARNING]
 > Make sure the extensions are added to the top-level `pyproject.toml`. They >
-> should be listed both in `project.dependencies`, `tool.uv.sources`, and
-> `tool.uv.workspace`.
+> should be listed both in `project.dependencies` and `tool.uv.sources`.
 
 Then, use `uv` to install everything:
 
 ```sh
+cd ~/mopidy-dev/
 uv sync
 ```
 

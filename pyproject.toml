@@ -22,8 +22,5 @@ mopidy-spotify = { workspace = true }
 [tool.uv.workspace]
 members = [
     "mopidy/",
-    "mopidy-local/",
-    "mopidy-mpd/",
-    "mopidy-scrobbler/",
-    "mopidy-spotify/",
+    "ext/*",
 ]
