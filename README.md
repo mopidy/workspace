@@ -22,7 +22,7 @@ gh repo clone mopidy/mopidy-spotify
 ```
 
 > [!WARNING]
-> Make sure the extensions are added to the top-level `pyproject.toml`. They >
+> Make sure the extensions are added to the top-level `pyproject.toml`. They
 > should be listed both in `project.dependencies` and `tool.uv.sources`.
 
 Then, use `uv` to install everything:
