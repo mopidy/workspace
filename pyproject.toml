@@ -5,11 +5,12 @@ description = "Workspace for working across multiple Mopidy projects."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "mopidy",
-    "mopidy-local",
-    "mopidy-mpd",
-    "mopidy-scrobbler",
-    "mopidy-spotify",
+  "mopidy",
+  "mopidy-local",
+  "mopidy-mpd",
+  "mopidy-scrobbler",
+  "mopidy-soundcloud",
+  "mopidy-spotify",
 ]
 
 [tool.uv.sources]
@@ -17,10 +18,8 @@ mopidy = { workspace = true }
 mopidy-local = { workspace = true }
 mopidy-mpd = { workspace = true }
 mopidy-scrobbler = { workspace = true }
+mopidy-soundcloud = { workspace = true }
 mopidy-spotify = { workspace = true }
 
 [tool.uv.workspace]
-members = [
-    "mopidy/",
-    "ext/*",
-]
+members = ["mopidy/", "ext/*"]
