@@ -15,9 +15,11 @@ Clone any extensions you want to work on:
 
 ```sh
 cd ~/mopidy-dev/ext/
+gh repo clone mopidy/mopidy-beets
 gh repo clone mopidy/mopidy-local
 gh repo clone mopidy/mopidy-mpd
 gh repo clone mopidy/mopidy-scrobbler
+gh repo clone mopidy/mopidy-soundcloud
 gh repo clone mopidy/mopidy-spotify
 ```
 
