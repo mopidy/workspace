@@ -11,6 +11,7 @@ dependencies = [
   "mopidy-local",
   "mopidy-mpd",
   "mopidy-mpris",
+  "mopidy-nad",
   "mopidy-scrobbler",
   "mopidy-soundcloud",
   "mopidy-spotify",
@@ -23,6 +24,7 @@ mopidy-beets = { workspace = true }
 mopidy-local = { workspace = true }
 mopidy-mpd = { workspace = true }
 mopidy-mpris = { workspace = true }
+mopidy-nad = { workspace = true }
 mopidy-scrobbler = { workspace = true }
 mopidy-soundcloud = { workspace = true }
 mopidy-spotify = { workspace = true }
