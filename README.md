@@ -19,6 +19,7 @@ gh repo clone mopidy/mopidy-alsamixer
 gh repo clone mopidy/mopidy-beets
 gh repo clone mopidy/mopidy-local
 gh repo clone mopidy/mopidy-mpd
+gh repo clone mopidy/mopidy-mpris
 gh repo clone mopidy/mopidy-scrobbler
 gh repo clone mopidy/mopidy-soundcloud
 gh repo clone mopidy/mopidy-spotify
