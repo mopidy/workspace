@@ -21,6 +21,7 @@ gh repo clone mopidy/mopidy-local
 gh repo clone mopidy/mopidy-mpd
 gh repo clone mopidy/mopidy-mpris
 gh repo clone mopidy/mopidy-nad
+gh repo clone mopidy/mopidy-pandora
 gh repo clone mopidy/mopidy-orfradio
 gh repo clone mopidy/mopidy-scrobbler
 gh repo clone mopidy/mopidy-soundcloud
