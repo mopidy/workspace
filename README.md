@@ -11,7 +11,14 @@ Clone this repo:
 gh repo clone mopidy/workspace ~/mopidy-dev
 ```
 
-Clone any extensions you want to work on:
+Clone Mopidy itself:
+
+```sh
+cd ~/mopidy-dev/
+gh repo clone mopidy/mopidy
+```
+
+Clone any extensions you want to work on into the `ext/` directory:
 
 ```sh
 cd ~/mopidy-dev/ext/
