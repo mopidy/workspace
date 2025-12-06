@@ -36,7 +36,7 @@ Then, use `uv` to install everything:
 
 ```sh
 cd ~/mopidy-dev/
-uv sync
+uv sync --all-packages --all-groups --all-extras --reinstall
 ```
 
 And use `uv` to run `mopidy`. A good sanitity check is to begin with `mopidy deps`:
