@@ -1,5 +1,6 @@
 [env]
 UV_PROJECT_ENVIRONMENT = "{{config_root}}/.venv"
+_.python.venv = "{{config_root}}/.venv"
 
 [tools]
 uv = "latest"
