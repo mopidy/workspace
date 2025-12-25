@@ -23,6 +23,7 @@ Clone any extensions you want to work on into the `ext/` directory:
 ```sh
 cd ~/mopidy-dev/ext/
 gh repo clone mopidy/mopidy-alsamixer
+gh repo clone mopidy/mopidy-api-explorer
 gh repo clone mopidy/mopidy-beets
 gh repo clone mopidy/mopidy-local
 gh repo clone mopidy/mopidy-mpd
