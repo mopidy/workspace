@@ -3,13 +3,51 @@
 Experimental development environment setup for Mopidy using
 [uv](https://docs.astral.sh/uv/).
 
+## Layout
+
+`~/mopidy-dev/` is a plain directory, not a Git repo. Each project is its own
+checkout below it, and this repo lives in the `workspace/` subdirectory. Its
+`pyproject.toml` and `.mise.toml` are symlinked to the top level, which makes
+`~/mopidy-dev/` the uv workspace root.
+
+```text
+~/mopidy-dev/
+├── workspace/                             # this repo
+├── mopidy/                                # Mopidy core
+├── ext/                                   # one checkout per extension
+│   ├── mopidy-mpd/
+│   └── mopidy-spotify/
+├── website/                               # and other supporting repos
+├── pyproject.toml -> workspace/pyproject.toml
+├── .mise.toml -> workspace/.mise.toml
+├── uv.lock
+└── .venv/
+```
+
+Keep this repo in a subdirectory. If you clone it to `~/mopidy-dev/` instead,
+its `.gitignore` marks every checkout below as ignored, and editors then gray
+out all of your projects and skip them in file search.
+
 ## Usage
 
-Clone this repo:
+Create the directories and clone this repo:
 
 ```sh
-gh repo clone mopidy/workspace ~/mopidy-dev
+mkdir -p ~/mopidy-dev/ext
+gh repo clone mopidy/workspace ~/mopidy-dev/workspace
 ```
+
+Symlink the shared configuration to the top level:
+
+```sh
+cd ~/mopidy-dev/
+ln -s workspace/pyproject.toml pyproject.toml
+ln -s workspace/.mise.toml .mise.toml
+```
+
+> [!NOTE]
+> If you use [mise](https://mise.jdx.dev/), trust the new path with
+> `mise trust ~/mopidy-dev/.mise.toml`.
 
 Clone Mopidy itself:
 
@@ -37,7 +75,7 @@ gh repo clone mopidy/mopidy-spotify
 ```
 
 > [!WARNING]
-> Make sure the extensions are added to the top-level `pyproject.toml`. They
+> Make sure the extensions are added to `workspace/pyproject.toml`. They
 > should be listed both in `project.dependencies` and `tool.uv.sources`.
 
 Then, use `uv` to install everything:
