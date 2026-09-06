@@ -14,9 +14,8 @@ checkout below it, and this repo lives in the `workspace/` subdirectory. Its
 ~/mopidy-dev/
 ├── workspace/                             # this repo
 ├── mopidy/                                # Mopidy core
-├── ext/                                   # one checkout per extension
-│   ├── mopidy-mpd/
-│   └── mopidy-spotify/
+├── mopidy-mpd/                            # one checkout per extension
+├── mopidy-spotify/
 ├── website/                               # and other supporting repos
 ├── pyproject.toml -> workspace/pyproject.toml
 ├── .mise.toml -> workspace/.mise.toml
@@ -30,10 +29,10 @@ out all of your projects and skip them in file search.
 
 ## Usage
 
-Create the directories and clone this repo:
+Create the directory and clone this repo:
 
 ```sh
-mkdir -p ~/mopidy-dev/ext
+mkdir -p ~/mopidy-dev
 gh repo clone mopidy/workspace ~/mopidy-dev/workspace
 ```
 
@@ -56,10 +55,10 @@ cd ~/mopidy-dev/
 gh repo clone mopidy/mopidy
 ```
 
-Clone any extensions you want to work on into the `ext/` directory:
+Clone any extensions you want to work on into the same directory:
 
 ```sh
-cd ~/mopidy-dev/ext/
+cd ~/mopidy-dev/
 gh repo clone mopidy/mopidy-alsamixer
 gh repo clone mopidy/mopidy-api-explorer
 gh repo clone mopidy/mopidy-beets
@@ -77,6 +76,11 @@ gh repo clone mopidy/mopidy-spotify
 > [!WARNING]
 > Make sure the extensions are added to `workspace/pyproject.toml`. They
 > should be listed both in `project.dependencies` and `tool.uv.sources`.
+>
+> `tool.uv.workspace.members` picks up any `mopidy-*` directory, so keep the
+> directory name lowercase. A repo cloned as `Mopidy-Pandora` does not match.
+> Directories that are not workspace members, such as `mopidy-ext-template`,
+> must be listed in `tool.uv.workspace.exclude`.
 
 Then, use `uv` to install everything:
 

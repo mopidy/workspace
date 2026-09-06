@@ -36,4 +36,5 @@ mopidy-soundcloud = { workspace = true }
 mopidy-spotify = { workspace = true }
 
 [tool.uv.workspace]
-members = ["mopidy/", "ext/*"]
+members = ["mopidy", "mopidy-*"]
+exclude = ["mopidy-ext-template"]
