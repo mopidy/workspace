@@ -18,6 +18,7 @@ dependencies = [
   "mopidy-scrobbler",
   "mopidy-soundcloud",
   "mopidy-spotify",
+  "mopidy-tunein",
 ]
 
 [tool.uv.sources]
@@ -34,6 +35,7 @@ mopidy-orfradio = { workspace = true }
 mopidy-scrobbler = { workspace = true }
 mopidy-soundcloud = { workspace = true }
 mopidy-spotify = { workspace = true }
+mopidy-tunein = { workspace = true }
 
 [tool.uv.workspace]
 members = ["mopidy", "mopidy-*"]
