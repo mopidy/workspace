@@ -40,6 +40,7 @@ Symlink the shared configuration to the top level:
 
 ```sh
 cd ~/mopidy-dev/
+ln -s workspace/AGENTS.md AGENTS.md
 ln -s workspace/pyproject.toml pyproject.toml
 ln -s workspace/.mise.toml .mise.toml
 ```
