@@ -99,5 +99,36 @@ Whenever you make changes in any of the cloned repos, `uv` will detect it and
 update the installation whenever needed, making sure you're always running the
 latest code from across the repos.
 
+## Nix development shell
+
+The optional Nix flake supplies Python interpreters and native dependencies for
+the existing uv and tox workflow. It does not package Mopidy or manage Python
+project dependencies.
+
+Enter the shell from the workspace checkout, then use the shared uv workspace
+and project tox configuration as usual:
+
+```sh
+cd ~/mopidy-dev/workspace
+nix develop
+
+cd ..
+uv sync --all-packages --all-groups --all-extras
+
+cd mopidy
+tox -e 3.13
+
+cd ../mopidy-spotify
+tox -e 3.13
+```
+
+The shell provides supported Python versions, uv, tox, build tools, and the
+GLib, GObject introspection, GStreamer, Cairo, and X11 environment needed to
+build and test Mopidy projects. It also passes the required native environment
+variables into tox's isolated environments. On NixOS, tox runs in a small FHS
+compatibility environment so native tools installed from PyPI work without
+host-wide `nix-ld`. Run `nix flake check` in `~/mopidy-dev/workspace` to test GI
+and GStreamer discovery.
+
 > [!NOTE]
 > Further simplifications and streamlining of the above process are welcome!
