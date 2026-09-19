@@ -145,5 +145,7 @@ compatibility environment so native tools installed from PyPI work without
 host-wide `nix-ld`. Run `nix flake check` in `~/mopidy-dev/workspace` to test GI
 and GStreamer discovery.
 
-> [!NOTE]
-> Further simplifications and streamlining of the above process are welcome!
+## Contributing
+
+Further simplifications and streamlining of this development environment are
+welcome.
