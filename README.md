@@ -122,6 +122,21 @@ cd ../mopidy-spotify
 tox -e 3.13
 ```
 
+To use the shell from another checkout with
+[direnv](https://direnv.net/), pin the upstream flake revision in `.envrc`:
+
+```sh
+use flake github:mopidy/workspace/<full-sha-you-want-to-pin>
+```
+
+Then approve it:
+
+```sh
+direnv allow
+```
+
+Update the revision explicitly when you want to adopt newer workspace changes.
+
 The shell provides supported Python versions, uv, tox, build tools, and the
 GLib, GObject introspection, GStreamer, Cairo, and X11 environment needed to
 build and test Mopidy projects. It also passes the required native environment
