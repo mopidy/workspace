@@ -103,3 +103,17 @@ Extensions use a flat `src/mopidy_<name>/` layout (underscore, not hyphen). They
 - Google-style docstrings
 - Test mirrors source structure: `src/mopidy/core/_playback.py` -> `tests/core/test_playback.py`
 - pyright in standard mode for type checking
+
+## Agent skills
+
+### Issue tracker
+
+GitHub issues in each repo of the `mopidy` org; work that spans repos gets a parent issue in `mopidy/mopidy`. See `workspace/docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+State labels `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`; categories are GitHub issue types; wontfix is "close as not planned". See `workspace/docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `workspace/CONTEXT.md` and `workspace/docs/adr/` for core and all extensions. See `workspace/docs/agents/domain.md`.
