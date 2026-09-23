@@ -12,7 +12,7 @@ Issues and specs live as GitHub issues in the `mopidy` GitHub organization. Each
 ## Conventions
 
 - **Create an issue**: `gh issue create -R mopidy/<repo> --type <Bug|Feature|Task> --title "..." --body "..."`. Use a heredoc for multi-line bodies.
-- **Read an issue**: `gh issue view -R mopidy/<repo> <number> --comments --json title,body,labels,issueType,parent,subIssues,blockedBy,comments`.
+- **Read an issue**: `gh issue view -R mopidy/<repo> <number> --json title,body,labels,issueType,parent,subIssues,blockedBy,comments`.
 - **List issues**: `gh issue list -R mopidy/<repo> --state open --json number,title,body,labels,issueType,comments --jq '[.[] | {number, title, body, type: .issueType.name, labels: [.labels[].name], comments: [.comments[].body]}]'` with `--label`, `--type`, and `--state` filters as needed.
 - **Comment on an issue**: `gh issue comment -R mopidy/<repo> <number> --body "..."`
 - **Apply / remove labels**: `gh issue edit -R mopidy/<repo> <number> --add-label "..."` / `--remove-label "..."`
