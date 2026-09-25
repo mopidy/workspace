@@ -36,7 +36,11 @@ server is much harder than the reverse. See
 
 ## Consequences
 
-- The Tornado-to-ASGI WebSocket bridge does not exist yet. A prototype must
-  show that it works before the rest is built.
+- A prototype on the
+  [`prototype/asgi-bridge`](https://github.com/jodal/mopidy/tree/prototype/asgi-bridge)
+  branch shows that the bridge works for HTTP, WebSockets, backpressure and
+  lifespan events. The bridge must finish the Tornado response only from the
+  handler method, and it must hold WebSocket sends until Tornado calls
+  `open()`.
 - `http:app` is first deprecated in the docs only. A runtime warning comes in
   a later 4.x release.
