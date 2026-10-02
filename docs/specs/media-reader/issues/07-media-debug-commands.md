@@ -21,10 +21,12 @@ reader gives for a file or URI. The commands replace
 **Output:** Each URI gets a `rich.tree.Tree`, with the URI as the root.
 
 - The keys are the field names of the models, in the field order of the
-  models. Only fields with a value are shown. Nested models, such as the
-  album and the artists, are subtrees.
-- The root URI is never truncated. Other long values stay on one line and
-  end with "…".
+  models. All fields with a value are shown, also the track URI. Nested
+  models, such as the album, are subtrees.
+- Each model in a collection, such as each artist, is a subtree with its
+  number as the label. This is also true if there is only one model.
+- URIs and error messages wrap. Other long values stay on one line and end
+  with "…".
 - A length shows the milliseconds and `m:ss.fff`.
 - Embedded images show the size of each image in bytes.
 - An error is one red `error` node with the message.
@@ -33,19 +35,21 @@ reader gives for a file or URI. The commands replace
 
 ```text
 file:///music/song1.mp3
-├── playable  yes
-├── seekable  yes
 ├── track
-│   ├── name        trackname
+│   ├── uri       file:///music/song1.mp3
+│   ├── name      trackname
 │   ├── artists
-│   │   └── name    name
+│   │   └── 1
+│   │       └── name  name
 │   ├── album
 │   │   ├── name        albumname
 │   │   ├── num_tracks  2
 │   │   └── date        2006
-│   ├── track_no    1
-│   ├── date        2006
-│   └── length      4608 (0:04.608)
+│   ├── track_no  1
+│   ├── date      2006
+│   └── length    4608 (0:04.608)
+├── playable  yes
+├── seekable  yes
 └── images
     └── 182 bytes
 ```
@@ -56,12 +60,16 @@ file:///music/song1.mp3
 http://example.com/radio.pls
 ├── entry 1
 │   ├── track
+│   │   ├── uri   http://a.example.com/stream
 │   │   └── name  Radio
 │   └── alternatives
 │       ├── http://a.example.com/stream
 │       └── http://b.example.com/stream
 └── entry 2
-    └── …
+    ├── track
+    │   └── uri  http://c.example.com/stream
+    └── alternatives
+        └── http://c.example.com/stream
 ```
 
 `playback-target`:
@@ -69,9 +77,23 @@ http://example.com/radio.pls
 ```text
 http://example.com/radio.pls
 ├── uri    http://b.example.com/stream
-├── info   (the subtree of `info`, or "unverified" in yellow)
-└── entry  (the subtree of the entry, if there is one)
+├── info
+│   ├── track
+│   │   ├── uri   http://b.example.com/stream
+│   │   └── name  Radio Stream
+│   ├── playable  yes
+│   └── seekable  no
+└── entry
+    ├── track
+    │   ├── uri   http://a.example.com/stream
+    │   └── name  Radio
+    └── alternatives
+        ├── http://a.example.com/stream
+        └── http://b.example.com/stream
 ```
+
+For an unverified playback target, `info` is one leaf with "unverified" in
+yellow. If the first URI is the playback target, there is no `entry` node.
 
 If no playback target is found, the root has one red line: "no playback
 target found". The command does not show which URIs it tried. The reader
