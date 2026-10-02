@@ -32,8 +32,8 @@ Conventions:
   source or a test.
 - Glossary: this document was written before the terms in `CONTEXT.md`,
   section "Audio and media", were settled. Here, "scanner" means the
-  metadata reader (today `mopidy.audio.scan.Scanner`), and "resolve" means
-  find stream (today `_unwrap_stream()` in the stream extension).
+  media info reader (today `mopidy.audio.scan.Scanner`), and "resolve" means
+  find playback target (today `_unwrap_stream()` in the stream extension).
 
 ## Summary
 

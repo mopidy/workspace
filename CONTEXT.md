@@ -42,7 +42,7 @@ _Avoid_: Audio backend, audio engine
 **Playback engine**:
 The component that plays URIs to the audio output and reports stream
 metadata. There is one playback engine in each Mopidy process, and it lives
-as long as the process. It does not read metadata of URIs that it does not
+as long as the process. It does not read media info of URIs that it does not
 play.
 _Avoid_: Audio engine, audio backend, player
 
@@ -62,32 +62,31 @@ current song on a radio stream.
 
 **Reader**:
 The object that reads media and playlist documents without playing them,
-`mopidy.media.Reader`. It has three methods: read metadata, read entries
-and find stream. Each caller, for example a backend, makes its own reader
-with `create_reader()` and closes it when it stops. A reader keeps an HTTP
-connection pool, but it does not cache results.
+`mopidy.media.Reader`. It has three methods: read media info, read playlist
+entries and find playback target. Each caller, for example a backend, makes
+its own reader with `create_reader()` and closes it when it stops. A reader
+keeps an HTTP connection pool, but it does not cache results.
 _Avoid_: Scanner, prober, discoverer
 
-**Metadata reader**:
-The part of a reader that a media framework implements:
-`MetadataReader`, which gives the media info of one URI. Callers do not use
-it directly. It is not public until Mopidy has a way to plug in other
-implementations.
-_Avoid_: Scanner
+**Media info reader**:
+The part of a reader that a media framework implements, `MediaInfoReader`.
+It gives the media info of one URI. Callers do not use it directly. It is
+not public until Mopidy has a way to plug in other implementations.
+_Avoid_: Scanner, metadata reader
 
 **Media info**:
-What read metadata gives for one URI, `MediaInfo`: the metadata as a track,
-if the reader decoded audio (playable), if the media allows seeking, and
-the embedded images. Playable means that the metadata reader decoded audio.
-It does not mean that the playback engine can play the URI. It does not
-contain raw tags from the media framework.
+What read media info gives for one URI, `MediaInfo`: the metadata as a
+track, if the media info reader decoded audio (playable), if the media
+allows seeking, and the embedded images. Playable does not mean that the
+playback engine can play the URI. Media info does not contain raw tags from
+the media framework.
 _Avoid_: Scan result
 
-**Read metadata**:
-Get the media info of one URI, `Reader.read_metadata()`. It reads only that
-URI. If the URI is a playlist document, the result is not playable. It does
-not follow playlist documents.
-_Avoid_: Scan
+**Read media info**:
+Get the media info of one URI, `Reader.read_media_info()`. It reads only
+that URI. If the URI is a playlist document, the result is not playable. It
+does not follow playlist documents.
+_Avoid_: Scan, read metadata
 
 **Playlist format**:
 A text format that lists URIs: M3U, PLS, XSPF, ASX, ASX reference or URI
@@ -111,28 +110,34 @@ same content, in order of preference. Only XSPF and ASX can give more than
 one alternative.
 _Avoid_: Source, mirror, location
 
-**Parse entries**:
+**Parse playlist entries**:
 Get the playlist entries from the bytes of a playlist document,
-`parse_entries()`. It does no I/O. The content decides the playlist format.
-The media type and the URI are only hints for which format to try first.
-It gives no entries for content that is not a playlist document, and for
-HLS and DASH.
-_Avoid_: Parse playlist
+`parse_playlist_entries()`. It does no I/O. The content decides the
+playlist format. The media type and the URI are only hints for which format
+to try first. It gives no entries for content that is not a playlist
+document, and for HLS and DASH.
+_Avoid_: Parse playlist, parse entries
 
-**Read entries**:
+**Read playlist entries**:
 Fetch a playlist document from a `file`, `http` or `https` URI and parse
-its entries, `Reader.read_entries()`. It goes only one level deep. It does
-not read the metadata of the entries, and it does not check that they play.
-_Avoid_: Expand
+its playlist entries, `Reader.read_playlist_entries()`. It goes only one
+level deep. It does not read the media info of the entries, and it does not
+check that they play.
+_Avoid_: Expand, read entries
 
-**Find stream**:
-Get a stream URI from a URI that the user wants to play now,
-`Reader.find_stream()`. It reads entries and metadata, nested to any depth,
-and tries the alternatives of each entry in order. It gives the stream URI,
-its media info and the playlist entry that it came from. It does not raise
-an error for a URI that it cannot read: it tries the next one.
-_Avoid_: Resolve, unwrap, translate
+**Find playback target**:
+Get the playback target for a URI that the user wants to play now,
+`Reader.find_playback_target()`. It reads playlist entries and media info,
+nested to any depth, and tries the alternatives of each entry in order. It
+gives a `PlaybackTarget`: the URI, its media info and the playlist entry
+that it came from. It does not raise an error for a URI that it cannot
+read: it tries the next one.
+_Avoid_: Resolve, unwrap, translate, find stream
 
-**Stream URI**:
-A URI that the playback engine can play directly, such as an audio file, an
-HTTP radio stream or an HLS stream. It is not a playlist document.
+**Playback target**:
+The URI to give to the playback engine, such as a local audio file, an HTTP
+radio stream or an HLS stream. It is not a playlist document. It is not a
+promise that playback works: when find playback target cannot read a URI
+that is not a playlist document, it gives that URI as an unverified
+playback target, without media info.
+_Avoid_: Stream URI, stream
