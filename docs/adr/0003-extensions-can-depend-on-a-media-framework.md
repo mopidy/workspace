@@ -7,7 +7,7 @@ status: accepted
 An extension can work with only one media framework. Mopidy can have hooks
 that are specific to one media framework, but each such hook is marked as
 specific to that framework, and it is not part of the general playback
-engine or scanner interfaces.
+engine or reader interfaces.
 
 We chose this so that experiments can continue while the general interfaces
 get stricter. Mopidy-Spotify is an example: it plays through the GStreamer

@@ -30,11 +30,10 @@ Conventions:
   <https://mpv.io/manual/stable/> is generated from `mpv:DOCS/man/*.rst`.
 - "Unverified" marks a statement that this research did not check against a
   source or a test.
-- Glossary: this document uses the terms in `CONTEXT.md`, section "Audio and
-  media": "playback engine" (today `GstAudio`), "scanner" (today
-  `mopidy.audio.scan.Scanner`), and "resolve" for the step from a playlist
-  document to a stream URI (today `_unwrap_stream()` in the stream
-  extension).
+- Glossary: this document was written before the terms in `CONTEXT.md`,
+  section "Audio and media", were settled. Here, "scanner" means the
+  metadata reader (today `mopidy.audio.scan.Scanner`), and "resolve" means
+  find stream (today `_unwrap_stream()` in the stream extension).
 
 ## Summary
 
