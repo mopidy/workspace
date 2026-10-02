@@ -21,6 +21,8 @@ Tickets:
    Blocked by 4.
 6. [read_playlist_entries and find_playback_target](issues/06-find-playback-target.md).
    Blocked by 2 and 4.
+7. [A debug command that reads and prints media info](issues/07-debug-command-read-media-info.md).
+   Blocked by 2 and 3.
 
 ## Problem Statement
 
