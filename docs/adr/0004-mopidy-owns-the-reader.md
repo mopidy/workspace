@@ -11,7 +11,7 @@ API must be complete enough that no extension needs its own copy.
 
 The API:
 
-- `create_reader(config, *, timeout)` makes a reader. Each caller makes its
+- `Reader.create(*, config, timeout)` makes a reader. Each caller makes its
   own reader, keeps it, and closes it with `close()` or `with`.
 - `Reader.read_media_info(uri) -> MediaInfo` reads one URI. `MediaInfo` has
   `track`, `playable`, `seekable` and `images` (`EmbeddedImage`). It raises

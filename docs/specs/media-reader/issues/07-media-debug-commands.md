@@ -10,7 +10,7 @@ reader gives for a file or URI. The commands replace
   - `mopidy media info` calls `read_media_info()`.
   - `mopidy media playlist-entries` calls `read_playlist_entries()`.
   - `mopidy media playback-target` calls `find_playback_target()`.
-- Each subcommand makes a reader with `create_reader()` from the loaded
+- Each subcommand makes a reader with `Reader.create()` from the loaded
   config, and calls the reader method for each argument.
 - Each argument is a URI or a file path. An argument that is an existing
   path becomes a `file` URI. Else, an argument with a URI scheme is a URI.

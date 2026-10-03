@@ -3,13 +3,13 @@
 **What to build:** Extension developers can make a reader and read the media
 info of a URI. The file extension and the stream extension use it.
 
-- The public `mopidy.media` package has `create_reader`, `Reader` with
+- The public `mopidy.media` package has `Reader` with `create`,
   `read_media_info` and `close`, context manager support, `MediaInfo`,
   `EmbeddedImage` and `MediaReadError`.
 - The `MediaInfoReader` interface is defined in `mopidy.media`, but not
   exported or documented. The GStreamer code from ticket 01 implements it.
 - `Reader` can receive a media info reader in a constructor that is not
-  public, for tests. `create_reader` is the only public way to make one.
+  public, for tests. `Reader.create` is the only public way to make one.
 - The file extension `lookup()` gives tracks through the reader.
 - The stream extension uses `read_media_info` and `playable` in its current
   private loop. Its other behavior stays the same until ticket 06.
@@ -35,7 +35,7 @@ Use the glossary terms and the language rules in the spec, section
       `MediaReadError`. A missing file raises `MediaReadError`.
 - [ ] Embedded images come back as `EmbeddedImage` bytes.
 - [ ] Tags that are not valid are left out, and the read does not fail.
-- [ ] Tests for `create_reader`, `close` and the context manager.
+- [ ] Tests for `Reader.create`, `close` and the context manager.
 - [ ] The file and stream extension tests pass.
 - [ ] One name for "decoded audio" (`playable`) in the public and the
       private code.

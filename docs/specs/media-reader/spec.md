@@ -232,7 +232,7 @@ deprecated shims.
 
 ### API contract
 
-- `create_reader(config, *, timeout) -> Reader`. The only public way to
+- `Reader.create(*, config, timeout) -> Reader`. The only public way to
   make a reader. It always uses the GStreamer media info reader. `timeout` is
   a `DurationMs`, and it is the default for each method. For find playback target,
   it is the total deadline. Methods do not take a timeout yet.
@@ -353,10 +353,10 @@ Seams, from the highest down:
    - Parse playlist entries is tested directly: bytes in, entries out. This covers
      all formats, names, lengths, alternatives, relative URIs, encodings,
      HLS and DASH, and that a wrong hint does not change the result.
-   - Read media info is tested end to end through `create_reader()`, with
+   - Read media info is tested end to end through `Reader.create()`, with
      real GStreamer on the audio and text files in the test data. Prior
      art: the current scanner tests.
-   - The reader life cycle: `create_reader()`, `close()` and the context
+   - The reader life cycle: `Reader.create()`, `close()` and the context
      manager.
 2. **The media info reader seam** is the test double for read playlist
    entries and find playback target. Tests make a reader with a fake media

@@ -64,7 +64,7 @@ current song on a radio stream.
 The object that reads media and playlist documents without playing them,
 `mopidy.media.Reader`. It has three methods: read media info, read playlist
 entries and find playback target. Each caller, for example a backend, makes
-its own reader with `create_reader()` and closes it when it stops. A reader
+its own reader with `Reader.create()` and closes it when it stops. A reader
 keeps an HTTP connection pool, but it does not cache results.
 _Avoid_: Scanner, prober, discoverer
 
