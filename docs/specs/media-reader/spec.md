@@ -21,8 +21,8 @@ Tickets:
    Blocked by 4.
 6. [read_playlist_entries and find_playback_target](issues/06-find-playback-target.md).
    Blocked by 2 and 4.
-7. [A debug command that reads and prints media info](issues/07-debug-command-read-media-info.md).
-   Blocked by 2 and 3.
+7. [Debug commands for media info, playlist entries and playback targets](issues/07-media-debug-commands.md).
+   Blocked by 2, 3 and 6.
 
 ## Problem Statement
 
@@ -174,24 +174,28 @@ warnings.
     other players can read the playlists that Mopidy saves.
 42. As a user, I want the m3u extension to keep its current rules for
     relative paths and encodings, so that my existing playlists still work.
-43. As a Mopidy maintainer, I want the reader API to contain no GStreamer
+43. As a user, I want a command that prints the media info of a file or URI
+    as Mopidy reads it, so that I can debug missing or incorrect metadata.
+44. As a user, I want a command that prints the playback target of a radio
+    station URI, so that I can debug a station that does not play.
+45. As a Mopidy maintainer, I want the reader API to contain no GStreamer
     types or tag names, so that FFmpeg or mpv can implement it later.
-44. As a Mopidy maintainer, I want the part that depends on the media
+46. As a Mopidy maintainer, I want the part that depends on the media
     framework to be one small interface, the media info reader, so that a
     second implementation is a contained change.
-45. As a Mopidy maintainer, I want the media info reader interface to stay
+47. As a Mopidy maintainer, I want the media info reader interface to stay
     private until there is a way to plug in other implementations, so that
     we do not support an interface that nobody can use.
-46. As a Mopidy maintainer, I want `mopidy.audio` to contain only the
+48. As a Mopidy maintainer, I want `mopidy.audio` to contain only the
     playback engine, so that the separation in ADR-0002 is visible in the
     code.
-47. As a Mopidy maintainer, I want `mopidy.audio` and `mopidy.media` not to
+49. As a Mopidy maintainer, I want `mopidy.audio` and `mopidy.media` not to
     import from each other, so that each can change without the other.
-48. As a Mopidy maintainer, I want one parser for playlist documents in
+50. As a Mopidy maintainer, I want one parser for playlist documents in
     Mopidy, so that fixes are made in one place.
-49. As a Mopidy maintainer, I want the stream extension to use only the
+51. As a Mopidy maintainer, I want the stream extension to use only the
     public reader API, so that it is an example for other extensions.
-50. As a Mopidy maintainer, I want the reader to decide "playlist document
+52. As a Mopidy maintainer, I want the reader to decide "playlist document
     or not" with Mopidy's own parser, so that the result does not depend on
     which formats a media framework detects.
 
