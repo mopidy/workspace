@@ -31,6 +31,8 @@ uv run mopidy deps
 
 `uv` auto-detects source changes across workspace members — no reinstall needed after editing.
 
+`uv run` reads the `pyproject.toml` of all workspace members. If it fails with a TOML parse error in a different member, a different session is editing that checkout. Run `~/mopidy-dev/.venv/bin/python -m pytest …` from the project directory instead, and do not touch the other checkout.
+
 ## Testing & Quality (Mopidy core)
 
 All commands run from `mopidy/`:
@@ -97,12 +99,17 @@ Mopidy uses an **actor model** via [Pykka](https://pykka.readthedocs.io/). Key a
 
 Extensions use a flat `src/mopidy_<name>/` layout (underscore, not hyphen). They register via `[project.entry-points."mopidy.ext"]` in their `pyproject.toml`.
 
+## Website
+
+The user keeps `jekyll serve` running in `website/` on port 4000. Preview pages at <http://127.0.0.1:4000/>. Do not stop it, and do not start a second server. Its watcher rebuilds `_site/` when files change, so do not run `jekyll build`.
+
 ## Key conventions
 
 - Python 3.13+, ruff for linting/formatting (select = ALL with specific ignores)
 - Google-style docstrings
 - Test mirrors source structure: `src/mopidy/core/_playback.py` -> `tests/core/test_playback.py`
 - pyright in standard mode for type checking
+- Extensions import only the public API, for example `mopidy.models`, not private modules such as `mopidy.models._base`. The bundled extensions in `mopidy/src/mopidy/_exts/` are part of core, so they can import private types under `TYPE_CHECKING`. Do not export a type only to obey this rule.
 
 ## Agent skills
 
