@@ -72,6 +72,7 @@ gh repo clone mopidy/mopidy-orfradio
 gh repo clone mopidy/mopidy-scrobbler
 gh repo clone mopidy/mopidy-soundcloud
 gh repo clone mopidy/mopidy-spotify
+gh repo clone mopidy/mopidy-tunein
 ```
 
 > [!WARNING]
