@@ -112,13 +112,13 @@ and project tox configuration as usual:
 
 ```sh
 cd ~/mopidy-dev/workspace
-nix develop
+nix develop --accept-flake-config
 
 cd ..
 uv sync --all-packages --all-groups --all-extras
 
 cd mopidy
-tox -e 3.13
+tox -e 3.13-lowest,3.13,3.14,3.15
 
 cd ../mopidy-spotify
 tox -e 3.13
@@ -146,6 +146,40 @@ variables into tox's isolated environments. On NixOS, tox runs in a small FHS
 compatibility environment so native tools installed from PyPI work without
 host-wide `nix-ld`. Run `nix flake check` in `~/mopidy-dev/workspace` to test GI
 and GStreamer discovery.
+
+Python 3.13.16 and 3.14.8 come from
+[nixpkgs-python](https://github.com/cachix/nixpkgs-python), with its own nixpkgs
+pin preserved for binary-cache compatibility. These patch releases were checked
+in `https://nixpkgs-python.cachix.org` on both `x86_64-linux` and `aarch64-linux`;
+the latest stable aliases were not cached on both systems. Python 3.15 comes
+from the existing workspace nixpkgs pin (currently 3.15.0rc2) because the locked
+nixpkgs-python 3.15 derivation references a missing patch. Cache availability can
+change, and an uncached output may require a Nix build, especially after updating
+either input.
+
+`--accept-flake-config` accepts the flake's extra Cachix substituter and public
+key. With a multi-user Nix installation, the daemon administrator must also
+allow that cache and key (or trust your user); accepting flake configuration
+alone cannot override daemon trust restrictions. Check for “ignoring untrusted
+substituter” warnings before waiting for a source build.
+
+`python3.13`, `python3.14`, and `python3.15` are available together in the native
+shell and tox's FHS environment. The Python running tox itself remains the
+existing nixpkgs tooling interpreter. uv uses `UV_PYTHON_PREFERENCE=only-system`
+and `UV_PYTHON_DOWNLOADS=never`: a missing interpreter fails instead of triggering
+a uv-managed Python download. uv/tox still resolve and install all project
+dependencies, including PyGObject; Nix supplies only interpreters, tooling, and
+native libraries. To inspect discovery without running tests:
+
+```sh
+python3.13 --version
+python3.14 --version
+python3.15 --version
+uv python find 3.13
+uv python find 3.14
+uv python find 3.15
+tox c -e 3.13-lowest,3.13,3.14,3.15 -k base_python
+```
 
 ## Contributing
 

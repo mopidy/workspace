@@ -2,9 +2,17 @@
   description = "Native development environment for the Mopidy workspace";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs-python.url = "github:cachix/nixpkgs-python";
+
+  nixConfig = {
+    extra-substituters = [ "https://nixpkgs-python.cachix.org" ];
+    extra-trusted-public-keys = [
+      "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
+    ];
+  };
 
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, nixpkgs-python, ... }:
     let
       systems = [
         "aarch64-linux"
@@ -46,6 +54,17 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          # These patch releases have Cachix substitutes on both Linux systems.
+          # Keep the input's own nixpkgs pin so their store paths match the cache.
+          python313 = nixpkgs-python.packages.${system}."3.13.16";
+          python314 = nixpkgs-python.packages.${system}."3.14.8";
+          # nixpkgs-python's 3.15 output lacks its required no-ldconfig patch.
+          python315 = pkgs.python315;
+          pythons = [
+            python313
+            python314
+            python315
+          ];
           nativeLibraries = [
             pkgs.cairo
             pkgs.glib
@@ -92,6 +111,11 @@
               tomli-w
               virtualenv
             ];
+            # The default Python wrapper prepends its tooling interpreter.
+            # Put the test interpreters first for tox-uv's PATH discovery.
+            makeWrapperArgs = [
+              "--prefix PATH : ${pkgs.lib.makeBinPath pythons}"
+            ];
             doCheck = false;
           };
           toxUv = pkgs.python313Packages.buildPythonPackage {
@@ -124,12 +148,11 @@
               _:
               [
                 pkgs.nodejs
-                pkgs.python314
-                pkgs.python315
                 pkgs.stdenv.cc
                 pkgs.uv
                 toxEnv
               ]
+              ++ pythons
               ++ nativeLibraries
               ++ gstPackages;
             runScript = "${toxEnv}/bin/tox";
@@ -141,17 +164,16 @@
               pkgs.meson
               pkgs.ninja
               pkgs.pkg-config
-              pkgs.python313
-              pkgs.python314
-              pkgs.python315
               pkgs.stdenv.cc
               pkgs.uv
               toxFhs
-            ];
+            ]
+            ++ pythons;
 
             buildInputs = nativeLibraries ++ gstPackages;
 
             UV_PYTHON_DOWNLOADS = "never";
+            UV_PYTHON_PREFERENCE = "only-system";
             TOX_UV_PATH = "${pkgs.uv}/bin/uv";
             # Keep Pyright from downloading another non-Nix Node executable.
             PYRIGHT_PYTHON_GLOBAL_NODE = "1";
@@ -160,7 +182,7 @@
               export CPATH="${includePath}''${CPATH:+:$CPATH}"
               export GI_TYPELIB_PATH="${giTypelibPath}''${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
               export GST_PLUGIN_SYSTEM_PATH_1_0="${gstPluginPath}''${GST_PLUGIN_SYSTEM_PATH_1_0:+:$GST_PLUGIN_SYSTEM_PATH_1_0}"
-              export TOX_OVERRIDE="''${TOX_OVERRIDE:+$TOX_OVERRIDE;}tool.tox.env_run_base.pass_env+=NIX_*,PKG_CONFIG_PATH,CPATH,GI_TYPELIB_PATH,GST_PLUGIN_SYSTEM_PATH_1_0,PYRIGHT_PYTHON_GLOBAL_NODE"
+              export TOX_OVERRIDE="''${TOX_OVERRIDE:+$TOX_OVERRIDE;}tool.tox.env_run_base.pass_env+=NIX_*,PKG_CONFIG_PATH,CPATH,GI_TYPELIB_PATH,GST_PLUGIN_SYSTEM_PATH_1_0,PYRIGHT_PYTHON_GLOBAL_NODE,UV_PYTHON_DOWNLOADS,UV_PYTHON_PREFERENCE"
             '';
           };
         }
