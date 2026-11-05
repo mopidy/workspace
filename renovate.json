@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    "schedule:monthly",
+    ":maintainLockFilesMonthly",
+    ":automergePr",
+    ":automergeRequireAllStatusChecks"
+  ],
+  "enabledManagers": ["nix", "github-actions"],
+  "timezone": "Europe/Oslo",
+  "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
+  "prConcurrentLimit": 3,
+  "automerge": false,
+  "nix": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "description": "Git references have no release timestamps",
+      "matchDatasources": ["git-refs"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Automerge only Nix lockfile maintenance after required CI and reviews",
+      "matchManagers": ["nix"],
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "automerge": true,
+      "automergeStrategy": "merge-commit",
+      "platformAutomerge": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": false,
+    "minimumReleaseAge": "0 days",
+    "schedule": ["at any time"]
+  }
+}
