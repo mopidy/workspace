@@ -1,5 +1,6 @@
 /.*_cache/
 /.venv/
 /*/
+!/.github/
 !/docs/
 uv.lock
